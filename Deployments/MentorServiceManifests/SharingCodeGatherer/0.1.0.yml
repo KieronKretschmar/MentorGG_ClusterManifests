@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sharing-code-gatherer
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: sharing-code-gatherer
+    template:
+        metadata:
+            labels:
+                app: sharing-code-gatherer
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/sharingcodegatherer:0.1.0
+                  name: main
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: STEAM_API_KEY
+                        value: 655E147019BFCCB80F90E06B17F9AA41
+                      - name: MYSQL_CONNECTIONSTRING
+                        value: "server=users-mysql.default.svc.cluster.local;port=3306;userid=mentorinterface;password=mentorgg;database=users;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: sharing-code-gatherer
+spec:
+    selector:
+        app: sharing-code-gatherer
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80

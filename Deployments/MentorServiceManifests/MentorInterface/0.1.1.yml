@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mentor-interface
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mentor-interface
+    template:
+        metadata:
+            labels:
+                app: mentor-interface
+            annotations:
+                prometheus.io/scrape: "true"
+                prometheus.io/port: "9913"
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/mentorinterface:0.1.1
+                  name: main
+                  ports:
+                      - containerPort: 80
+                      - containerPort: 9913
+                  env:
+                      - name: STEAM_API_KEY
+                        value: 655E147019BFCCB80F90E06B17F9AA41
+                      - name: MYSQL_CONNECTIONSTRING
+                        value: "server=users-mysql;port=3306;userid=mentorinterface;password=mentorgg;database=users;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mentor-interface
+spec:
+    selector:
+        app: mentor-interface
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
+        - protocol: TCP
+          name: metrics
+          port: 9913
+          targetPort: 9913

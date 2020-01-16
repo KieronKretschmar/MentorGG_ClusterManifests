@@ -1,6 +1,6 @@
 # Cluster Manifests
 
-## Configuration
+## [Configuration](Configuration/README.md)
 
 Cluster configuration manifests, Including but not limited to:
 - ClusterRoles
@@ -8,7 +8,7 @@ Cluster configuration manifests, Including but not limited to:
 - ServiceAccounts
 - Secrets
 
-## Deployments
+## [Deployments](Deployments/README.md)
 
 Manifests to deploy services within a Kubernetes cluster, Including but not limited to:
 - Ingresses
