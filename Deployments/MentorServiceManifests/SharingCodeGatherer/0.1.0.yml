@@ -16,12 +16,16 @@ spec:
                 - image: mentorgg.azurecr.io/sharingcodegatherer:0.1.0
                   name: main
                   ports:
-                      - containerPort: 80
-                  env:
-                      - name: STEAM_API_KEY
-                        value: 655E147019BFCCB80F90E06B17F9AA41
-                      - name: MYSQL_CONNECTIONSTRING
-                        value: "server=users-mysql.default.svc.cluster.local;port=3306;userid=mentorinterface;password=mentorgg;database=users;"
+                    - containerPort: 80
+                  env:                    
+                    - name: AMQP_URI
+                      value: "amqp://user:mentorgg@rabbitmq-headless.default.svc.cluster.local:5672"
+                    - name: AMQP_SHARINGCODE_QUEUE
+                      value: "sharingcode-gathered"
+                    - name: STEAM_API_KEY
+                      value: "655E147019BFCCB80F90E06B17F9AA41"
+                    - name: MYSQL_CONNECTIONSTRING
+                      value: "server=sharingcodegatherer-mysql.default.svc.cluster.local;port=3306;userid=sharingcodegatherer;password=mentorgg;database=data;"
 ---
 apiVersion: v1
 kind: Service
