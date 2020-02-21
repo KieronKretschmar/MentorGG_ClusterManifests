@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: internal-rabbit
+    annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    labels:
+        app: mentor-interface
+
+    namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: rabbitmq
+  ports:
+    - port: 5672
