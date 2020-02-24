@@ -33,7 +33,7 @@ spec:
                                 name: steam-user-operator-redis
                                 key: redis-password
                       - name: REDIS_URI
-                        value: "$(REDIS_PASSWORD)@steam-user-operator-redis-master:6379"
+                        value: "steam-user-operator-redis-master:6379,password=$(REDIS_PASSWORD)"
 ---
 apiVersion: v1
 kind: Service
