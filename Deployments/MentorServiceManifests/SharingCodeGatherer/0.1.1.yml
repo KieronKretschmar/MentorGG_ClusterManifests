@@ -29,14 +29,20 @@ spec:
 
                     - name: AMQP_SHARINGCODE_QUEUE
                       value: "sharingcode-gathered"
+
                     - name: STEAM_API_KEY
                       valueFrom:
                         secretKeyRef:
                             name: steam-api
                             key: key
                     
+                    - name: MYSQL_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                            name: sharingcodegatherer-mysql
+                            key: mysql-password
                     - name: MYSQL_CONNECTIONSTRING
-                      value: "server=sharingcodegatherer-mysql.default.svc.cluster.local;port=3306;userid=sharingcodegatherer;password=mentorgg;database=data;"
+                      value: "server=sharingcodegatherer-mysql;port=3306;userid=sharingcodegatherer;password=$(MYSQL_PASSWORD);database=data;"
 ---
 apiVersion: v1
 kind: Service
