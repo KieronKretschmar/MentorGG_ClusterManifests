@@ -23,9 +23,17 @@ spec:
                       - containerPort: 9913
                   env:
                       - name: STEAM_API_KEY
-                        value: 655E147019BFCCB80F90E06B17F9AA41
+                        valueFrom:
+                            secretKeyRef:
+                                name: steam-api
+                                key: key
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: users-mysql
+                                key: mysql-password
                       - name: MYSQL_CONNECTIONSTRING
-                        value: "server=users-mysql;port=3306;userid=mentorinterface;password=mentorgg;database=users;"
+                        value: "server=users-mysql;port=3306;userid=mentorinterface;password=$(MYSQL_PASSWORD);database=users;"
 ---
 apiVersion: v1
 kind: Service
