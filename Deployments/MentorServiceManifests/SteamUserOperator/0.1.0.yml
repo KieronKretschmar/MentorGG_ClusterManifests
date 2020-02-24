@@ -13,6 +13,7 @@ spec:
                 app: steam-user-operator
         spec:
             containers:
+                # Update to 0.1.0 when image is retagged
                 - image: mentorgg.azurecr.io/steamuseroperator:1.0.0
                   name: main
                   ports:
