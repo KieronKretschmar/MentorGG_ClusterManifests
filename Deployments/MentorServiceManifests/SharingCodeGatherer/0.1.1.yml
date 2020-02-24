@@ -17,9 +17,16 @@ spec:
                   name: main
                   ports:
                     - containerPort: 80
-                  env:                    
+                  env:                 
+                    
+                    - name: AMQP_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                            name: rabbitmq
+                            key: rabbitmq-password
                     - name: AMQP_URI
-                      value: "amqp://user:mentorgg@rabbitmq-headless.default.svc.cluster.local:5672"
+                      value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+
                     - name: AMQP_SHARINGCODE_QUEUE
                       value: "sharingcode-gathered"
                     - name: STEAM_API_KEY
