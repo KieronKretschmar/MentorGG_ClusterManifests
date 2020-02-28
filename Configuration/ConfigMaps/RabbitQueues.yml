@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-queues
+  namespace: default
+data:    
+    demos-download-urls: "demos-download-urls"
+    demos-internal-urls: "demos-internal-urls"
+    demos-manual-internal-urls: "demos-manual-internal-urls"
+
+    demos-DFW: "demos-DFW"
+    demos-DFW-reply: "demos-DFW-reply"
+    
+    demos-gatherer: "demos-gatherer"
+    demos-SO: "demos-SO"
+
+    matches-dbi: "matches-dbi"
