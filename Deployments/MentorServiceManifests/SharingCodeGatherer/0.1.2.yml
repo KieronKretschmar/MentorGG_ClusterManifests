@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sharing-code-gatherer
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: sharing-code-gatherer
+    template:
+        metadata:
+            labels:
+                app: sharing-code-gatherer
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/sharingcodegatherer:0.1.2
+                  name: main
+                  ports:
+                    - containerPort: 80
+                  env:                 
+                    
+                    - name: AMQP_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                            name: rabbitmq
+                            key: rabbitmq-password
+                    - name: AMQP_URI
+                      value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+
+                    - name: AMQP_SHARINGCODE_QUEUE
+                      value: "sharingcode-gathered"
+
+                    - name: STEAM_API_KEY
+                      valueFrom:
+                        secretKeyRef:
+                            name: steam-api
+                            key: key
+                    
+                    - name: MYSQL_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                            name: sharingcodegatherer-mysql
+                            key: mysql-password
+                    - name: MYSQL_CONNECTIONSTRING
+                      value: "server=sharingcodegatherer-mysql;port=3306;userid=sharingcodegatherer;password=$(MYSQL_PASSWORD);database=data;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: sharing-code-gatherer
+spec:
+    selector:
+        app: sharing-code-gatherer
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
