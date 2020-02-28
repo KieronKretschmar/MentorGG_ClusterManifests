@@ -5,7 +5,8 @@ metadata:
     annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
     labels:
-        app: mentor-interface
+        app: rabbitmq
+        app.kubernetes.io/part-of: steamworksconnection
 
     namespace: default
 spec:
