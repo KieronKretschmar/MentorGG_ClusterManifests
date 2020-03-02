@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: upload-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "upload-letsencrypt-issuer"
+
+spec:
+  tls:
+  - hosts:
+    - upload.mentor.gg
+    secretName: upload-letsencrypt-key
+  rules:
+  - host: upload.mentor.gg
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: manual-demo-downloader
+          servicePort: 80
