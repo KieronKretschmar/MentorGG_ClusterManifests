@@ -38,3 +38,16 @@ spec:
                                 key: rabbitmq-password
                       - name: AMQP_URI
                         value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: manual-demo-downloader
+spec:
+    selector:
+        app: manual-demo-downloader
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
