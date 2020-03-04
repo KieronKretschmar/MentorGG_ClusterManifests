@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: manual-demo-downloader 
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: manual-demo-downloader 
+    template:
+        metadata:
+            labels:
+                app: manual-demo-downloader 
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/manualdemodownloader:0.2.0
+                  name: main
+                  ports:
+                      - containerPort: 80
+                  env:
+
+                      - name: BLOB_CONNECTION_STRING
+                        valueFrom:
+                            secretKeyRef:
+                                name: blob-storage
+                                key: connection-string
+
+                      - name: AMQP_UPLOAD_RECEIVED_QUEUE
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-manual-internal-urls
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: manual-demo-downloader
+spec:
+    selector:
+        app: manual-demo-downloader
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
