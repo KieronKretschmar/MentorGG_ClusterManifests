@@ -13,9 +13,8 @@ spec:
                 app: demo-central 
         spec:
             containers:
-                - image: mentorgg.azurecr.io/democentral:0.2.1-pre
+                - image: mentorgg.azurecr.io/democentral:0.2.2
                   name: main
-                  imagePullPolicy: Always
                   ports:
                       - containerPort: 80
                   env:
@@ -29,8 +28,13 @@ spec:
                         value: "server=demo-central-mysql;port=3306;userid=democentral;password=$(MYSQL_PASSWORD);database=demoinfo"
 
                       - name: HTTP_USER_SUBSCRIPTION
-                        value: "https://mentor-interface"
+                        value: "mock"
 
+                      - name: AMQP_FANOUT_EXCHANGE_NAME
+                        valueFrom:
+                             configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-fanout-exchange
 
                       - name: AMQP_MANUALDEMODOWNLOAD
                         valueFrom:
