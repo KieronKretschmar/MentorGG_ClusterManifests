@@ -7,6 +7,7 @@ data:
     demos-download-urls: "demos-download-urls"
     demos-internal-urls: "demos-internal-urls"
     demos-manual-internal-urls: "demos-manual-internal-urls"
+    demos-fanout-exchange: "demos-fanout-exchange"
 
     demos-DFW: "demos-DFW"
     demos-DFW-reply: "demos-DFW-reply"
