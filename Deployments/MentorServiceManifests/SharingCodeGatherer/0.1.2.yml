@@ -28,7 +28,7 @@ spec:
                       value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
 
                     - name: AMQP_SHARINGCODE_QUEUE
-                      value: "sharingcode-gathered"
+                      value: sharing-code-instructions 
 
                     - name: STEAM_API_KEY
                       valueFrom:

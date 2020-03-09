@@ -40,37 +40,37 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-manual-internal-urls
+                                key: demo-obtain-reports
 
                       - name: AMQP_DEMODOWNLOADER
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-download-urls
+                                key: demo-download-instructions
 
                       - name: AMQP_DEMODOWNLOADER_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-internal-urls
+                                key: demo-obtain-reports
 
                       - name: AMQP_DEMOFILEWORKER
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-DFW
+                                key: demo-analyze-instructions
 
                       - name: AMQP_DEMOFILEWORKER_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-DFW-reply
+                                key: demo-analyze-reports
 
                       - name: AMQP_GATHERER
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-gatherer
+                                key: demo-insert-instructions
 
                       - name: AMQP_SITUATIONSOPERATOR
                         valueFrom:

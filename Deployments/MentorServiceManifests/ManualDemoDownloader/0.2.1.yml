@@ -29,7 +29,7 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-manual-internal-urls
+                                key: demo-obtain-reports
 
                       - name: AMQP_PASSWORD
                         valueFrom:

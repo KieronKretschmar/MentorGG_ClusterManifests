@@ -3,16 +3,17 @@ kind: ConfigMap
 metadata:
   name: rabbitmq-queues
   namespace: default
-data:    
-    demos-download-urls: "demos-download-urls"
-    demos-internal-urls: "demos-internal-urls"
-    demos-manual-internal-urls: "demos-manual-internal-urls"
+data:
+    sharing-code-instructions: "sharing-code-instructions"
+    demo-insert-instructions: "demo-insert-instructions"
+    demo-download-instructions: "demo-download-instructions"
+    demo-obtain-reports: "demo-obtain-reports"
+
+    demo-analyze-instructions: "demo-analyze-instructions"
+    demo-analyze-reports: "demo-analyze-reports"
+
     demos-fanout-exchange: "demos-fanout-exchange"
 
-    demos-DFW: "demos-DFW"
-    demos-DFW-reply: "demos-DFW-reply"
-    
-    demos-gatherer: "demos-gatherer"
     demos-SO: "demos-SO"
 
     matches-dbi: "matches-dbi"
