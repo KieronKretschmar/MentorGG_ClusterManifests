@@ -39,7 +39,7 @@ spec:
                     - name: MYSQL_PASSWORD
                       valueFrom:
                         secretKeyRef:
-                            name: sharingcodegatherer-mysql
+                            name: sharing-code-gatherer-mysql
                             key: mysql-password
                     - name: MYSQL_CONNECTIONSTRING
                       value: "server=sharingcodegatherer-mysql;port=3306;userid=sharingcodegatherer;password=$(MYSQL_PASSWORD);database=data;"
