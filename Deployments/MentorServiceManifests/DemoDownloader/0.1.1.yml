@@ -29,13 +29,13 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-download-urls
+                                key: demo-download-instructions
 
                       - name: AMQP_DEMO_URL_QUEUE
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-internal-urls
+                                key: demo-obtain-reports
 
                       - name: AMQP_PASSWORD
                         valueFrom:
