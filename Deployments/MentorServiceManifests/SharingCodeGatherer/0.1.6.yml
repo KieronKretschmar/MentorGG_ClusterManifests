@@ -41,8 +41,8 @@ spec:
                         secretKeyRef:
                             name: sharing-code-gatherer-mysql
                             key: mysql-password
-                    - name: MYSQL_CONNECTIONSTRING
-                      value: "server=sharingcodegatherer-mysql;port=3306;userid=sharingcodegatherer;password=$(MYSQL_PASSWORD);database=data;"
+                    - name: MYSQL_CONNECTION_STRING
+                      value: "server=sharing-code-gatherer-mysql;port=3306;userid=sharingcodegatherer;password=$(MYSQL_PASSWORD);database=data;"
 ---
 apiVersion: v1
 kind: Service
