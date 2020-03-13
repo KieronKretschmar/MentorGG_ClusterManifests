@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: demo-downloader 
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: demo-downloader 
+    template:
+        metadata:
+            labels:
+                app: demo-downloader 
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/demodownloader:0.2.1
+                  name: main
+                  ports:
+                      - containerPort: 80
+                  env:
+
+                      - name: BLOB_CONNECTION_STRING
+                        valueFrom:
+                            secretKeyRef:
+                                name: blob-storage
+                                key: connection-string
+
+                      - name: AMQP_DOWNLOAD_URL_QUEUE
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-download-instructions
+
+                      - name: AMQP_DEMO_URL_QUEUE
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-obtain-reports
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
