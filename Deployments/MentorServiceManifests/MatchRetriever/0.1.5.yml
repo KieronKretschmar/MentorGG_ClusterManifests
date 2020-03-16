@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: match-retriever
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: match-retriever
+    template:
+        metadata:
+            labels:
+                app: match-retriever
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/matchretriever:0.1.5
+                  name: main
+                  ports:
+                    - containerPort: 80
+                  env:
+
+                    - name: STEAMUSEROPERATOR_URI
+                      value: "http://steam-user-operator"
+                    
+                    - name: MYSQL_PASSWORD
+                      valueFrom:
+                        secretKeyRef:
+                            name: match-retriever-mysql
+                            key: mysql-password
+                    - name: MYSQL_CONNECTION_STRING
+                      value: "server=match-retriever-mysql;port=3306;userid=matchretriever;password=$(MYSQL_PASSWORD);database=data;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: match-retriever
+spec:
+    selector:
+        app: match-retriever
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
