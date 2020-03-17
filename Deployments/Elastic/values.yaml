@@ -11,7 +11,7 @@ global:
   ##
   coordinating:
     name: coordinating-only
-  kibanaEnabled: false
+  kibanaEnabled: true
 
 ## Bitnami Elasticsearch image version
 ## ref: https://hub.docker.com/r/bitnami/elasticsearch/tags/
