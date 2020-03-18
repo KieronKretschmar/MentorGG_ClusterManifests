@@ -35,6 +35,17 @@ $ helm install elasticsearch -f elasticsearch-values.yml elastic/elasticsearch -
 ```shell
 $ helm install filebeat -f filebeat-values.yml elastic/filebeat --namespace elastic-system 
 ```
+
+## Metricbeat
+
+- https://github.com/elastic/helm-charts/tree/master/metricbeat
+
+### Deployment
+
+```shell
+$ helm install metricbeat elastic/metricbeat --namespace elastic-system 
+```
+
 ## Kibana
 
 - https://github.com/elastic/helm-charts/tree/master/kibana
