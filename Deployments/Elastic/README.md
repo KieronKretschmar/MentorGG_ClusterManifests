@@ -2,6 +2,11 @@
 
 Cluster wide Logging and Metrics platform.
 
+## Reading
+
+- https://www.elastic.co/what-is/elk-stack
+- https://www.linode.com/docs/kubernetes/how-to-deploy-the-elastic-stack-on-kubernetes/
+
 ## Requirements
 
 1. Elastic Helm Repo
