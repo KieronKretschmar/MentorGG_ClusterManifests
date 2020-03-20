@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: demo-file-worker 
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: demo-file-worker 
+    template:
+        metadata:
+            labels:
+                app: demo-file-worker 
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/demofileworker:0.3.5
+                  name: main
+                  ports:
+                      - containerPort: 80
+                  env:
+
+                      - name: REDIS_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: match-data-sets-redis
+                                key: redis-password
+                      - name: REDIS_URI
+                        value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
+
+                      - name: AMQP_DEMOCENTRAL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-instructions
+
+                      - name: AMQP_DEMOCENTRAL_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-reports
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: demo-file-worker
+spec:
+    selector:
+        app: demo-file-worker
+    ports:
+        - protocol: TCP
+          name: http
+          port: 80
+          targetPort: 80
