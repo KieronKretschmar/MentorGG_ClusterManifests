@@ -25,10 +25,10 @@ spec:
                     - name: MYSQL_PASSWORD
                       valueFrom:
                         secretKeyRef:
-                            name: match-retriever-mysql
+                            name: match-data-mysql
                             key: mysql-password
                     - name: MYSQL_CONNECTION_STRING
-                      value: "server=match-retriever-mysql;port=3306;userid=matchretriever;password=$(MYSQL_PASSWORD);database=data;"
+                      value: "server=match-data-mysql;port=3306;userid=matchretriever;password=$(MYSQL_PASSWORD);database=data;"
 ---
 apiVersion: v1
 kind: Service
