@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: steam-user-operator
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: steam-user-operator
+    template:
+        metadata:
+            labels:
+                app: steam-user-operator
+        spec:
+            containers:
+                # Update to 0.1.0 when image is retagged
+                - image: mentorgg.azurecr.io/steamuseroperator:1.0.1
+                  name: main
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: EXPIRE_AFTER_DAYS
+                        value: "7"
+                        
+                      - name: STEAM_API_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: steam-api
+                                key: key
+
+                      - name: REDIS_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: steam-user-operator-redis
+                                key: redis-password
+                      - name: REDIS_URI
+                        value: "steam-user-operator-redis-master:6379,password=$(REDIS_PASSWORD)"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: steam-user-operator
+spec:
+    selector:
+        app: steam-user-operator
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
