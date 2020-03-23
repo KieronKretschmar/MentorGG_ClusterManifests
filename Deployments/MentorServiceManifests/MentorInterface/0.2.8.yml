@@ -16,7 +16,7 @@ spec:
                 prometheus.io/port: "9913"
         spec:
             containers:
-                - image: mentorgg.azurecr.io/mentorinterface:0.2.7
+                - image: mentorgg.azurecr.io/mentorinterface:0.2.8
                   name: main
                   ports:
                       - containerPort: 80
