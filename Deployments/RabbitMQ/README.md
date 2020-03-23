@@ -2,12 +2,12 @@
 
 # Sources
 
-- https://github.com/bitnami/charts/tree/master/upstreamed/rabbitmq
+- https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq
 
 # Deployment
 
 ```shell
-$ helm install rabbitmq -f values.yml stable/rabbitmq
+$ helm install rabbitmq -f values.yml bitnami/rabbitmq
 ```
 
 # Debugging
