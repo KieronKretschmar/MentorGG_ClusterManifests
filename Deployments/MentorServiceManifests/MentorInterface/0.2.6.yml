@@ -37,10 +37,10 @@ spec:
                       - name: MYSQL_PASSWORD
                         valueFrom:
                             secretKeyRef:
-                                name: users-mysql
+                                name: mentor-interface-mysql
                                 key: mysql-password
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=users-mysql;port=3306;userid=mentorinterface;password=$(MYSQL_PASSWORD);database=users;"
+                        value: "server=mentor-interface-mysql;port=3306;userid=mentorinterface;password=$(MYSQL_PASSWORD);database=data;"
 
                       - name: PADDLE_VENDOR_ID
                         valueFrom:

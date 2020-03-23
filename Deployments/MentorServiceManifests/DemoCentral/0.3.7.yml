@@ -25,7 +25,7 @@ spec:
                                 key: mysql-password
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=demo-central-mysql;port=3306;userid=democentral;password=$(MYSQL_PASSWORD);database=demoinfo"
+                        value: "server=demo-central-mysql;port=3306;userid=democentral;password=$(MYSQL_PASSWORD);database=data"
 
                       - name: HTTP_USER_SUBSCRIPTION
                         value: "mock"

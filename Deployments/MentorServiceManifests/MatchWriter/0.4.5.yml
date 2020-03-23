@@ -56,7 +56,7 @@ spec:
                               name: match-data-mysql
                               key: mysql-password
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=match-data-mysql;port=3306;userid=matchretriever;password=$(MYSQL_PASSWORD);database=data;"
+                        value: "server=match-data-mysql;port=3306;userid=matchdata;password=$(MYSQL_PASSWORD);database=data;"
 ---
 apiVersion: v1
 kind: Service
