@@ -11,8 +11,9 @@
 $ helm install <deployment name> -f <service>-config.yml bitnami/mysql
 ```
 
-# Upgrade 
+# Upgrade Example 
 
-```shell
-$ helm upgrade <deployment name> -f <service>.yml  bitnami/mysql
-```
+1. Obtain the password as described on the 'Administrator credentials' section and set the 'root.password' parameter as shown below:
+
+      ROOT_PASSWORD=$(kubectl get secret --namespace default demo-central-mysql -o jsonpath="{.data.mysql-root-password}" | base64 --decode)
+      helm upgrade demo-central bitnami/mysql --set root.password=$ROOT_PASSWORD
