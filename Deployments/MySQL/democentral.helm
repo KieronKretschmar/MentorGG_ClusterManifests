@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+helm install demo-central --set db.user=democentral,db.name=data,replication.enabled=false,master.persistence.size=1Gi bitnami/mysql

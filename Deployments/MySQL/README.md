@@ -7,8 +7,10 @@
 
 # Deployment
 
+Execute the required shell script
+
 ```shell
-$ helm install <deployment name> -f <service>-config.yml bitnami/mysql
+$ ./<SERVICE>.helm
 ```
 
 # Upgrade Example 
