@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+helm install steam-user-operator --set cluster.enabled=false,master.persistence.enabled=false bitnami/redis

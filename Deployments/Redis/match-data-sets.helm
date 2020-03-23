@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+helm install match-data-sets --set cluster.enabled=false,master.persistence.size=5Gi bitnami/redis
