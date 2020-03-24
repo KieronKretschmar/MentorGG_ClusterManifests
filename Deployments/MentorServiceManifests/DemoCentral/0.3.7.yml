@@ -15,6 +15,15 @@ spec:
             containers:
                 - image: mentorgg.azurecr.io/democentral:0.3.7
                   name: main
+
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                    limits:
+                      cpu: 200m
+                      memory: 256Mi
+
                   ports:
                       - containerPort: 80
                   env:
