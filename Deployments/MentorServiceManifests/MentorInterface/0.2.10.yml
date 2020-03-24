@@ -18,6 +18,15 @@ spec:
             containers:
                 - image: mentorgg.azurecr.io/mentorinterface:0.2.10
                   name: main
+
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                    limits:
+                      cpu: 200m
+                      memory: 256Mi
+
                   ports:
                       - containerPort: 80
                       - containerPort: 9913
