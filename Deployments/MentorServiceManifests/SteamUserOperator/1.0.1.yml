@@ -16,6 +16,15 @@ spec:
                 # Update to 0.1.0 when image is retagged
                 - image: mentorgg.azurecr.io/steamuseroperator:1.0.1
                   name: main
+
+                  resources:
+                    requests:
+                      cpu: 50m
+                      memory: 64Mi
+                    limits:
+                      cpu: 100m
+                      memory: 128Mi
+
                   ports:
                       - containerPort: 80
                   env:
