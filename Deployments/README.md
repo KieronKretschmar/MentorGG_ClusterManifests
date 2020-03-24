@@ -17,7 +17,7 @@
 2. Deploy the MySQL Helm Chart.
 
     ```shell
-    $ helm install users -f MySQL/users/users-config.yml bitnami/mysql
+    $ ./MySQL/mentor-interface.helm
     ```
 
     [Source](MySQL/README.md)
