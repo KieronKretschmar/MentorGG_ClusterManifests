@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: faceit-match-gatherer
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: faceit-match-gatherer
+    template:
+        metadata:
+            labels:
+                app: faceit-match-gatherer
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/faceitmatchgatherer:0.2.3
+                  name: main
+
+                  resources:
+                    requests:
+                      cpu: 50m
+                      memory: 128Mi
+                    limits:
+                      cpu: 100m
+                      memory: 128Mi
+
+                  ports:
+                      - containerPort: 80
+                  env:
+
+                      - name: FACEIT_OAUTH_CLIENT_ID
+                        valueFrom:
+                            secretKeyRef:
+                                name: faceit-api
+                                key: client-id
+
+                      - name: FACEIT_OAUTH_CLIENT_SECRET
+                        valueFrom:
+                            secretKeyRef:
+                                name: faceit-api
+                                key: client-secret
+
+                      - name: FACEIT_API_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: faceit-api
+                                key: api-key
+
+                      - name: FACEIT_OAUTH_TOKEN_ENDPOINT
+                        value: "https://api.faceit.com/auth/v1/oauth/token"
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                              name: rabbitmq
+                              key: rabbitmq-password
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+
+                      - name: AMQP_FACEIT_QUEUE
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-insert-instructions
+
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: faceit-match-gatherer-mysql
+                                key: mysql-password
+
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=faceit-match-gatherer-mysql;port=3306;userid=faceitmatchgatherer;password=$(MYSQL_PASSWORD);database=data;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: faceit-match-gatherer
+spec:
+    selector:
+        app: faceit-match-gatherer
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
