@@ -15,6 +15,15 @@ spec:
             containers:
                 - image: mentorgg.azurecr.io/manualdemodownloader:0.2.1
                   name: main
+
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                    limits:
+                      cpu: 150m
+                      memory: 128Mi
+
                   ports:
                       - containerPort: 80
                   env:
