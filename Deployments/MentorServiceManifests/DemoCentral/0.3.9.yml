@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: demo-central 
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: demo-central 
+    template:
+        metadata:
+            labels:
+                app: demo-central 
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/democentral:0.3.9
+                  name: main
+
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                    limits:
+                      cpu: 200m
+                      memory: 256Mi
+
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: demo-central-mysql
+                                key: mysql-password
+
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=demo-central-mysql;port=3306;userid=democentral;password=$(MYSQL_PASSWORD);database=data"
+
+                      - name: HTTP_USER_SUBSCRIPTION
+                        value: "mock"
+
+                      - name: AMQP_FANOUT_EXCHANGE_NAME
+                        valueFrom:
+                             configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-fanout-exchange
+
+                      - name: AMQP_MANUALDEMODOWNLOAD
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-obtain-reports
+
+                      - name: AMQP_DEMODOWNLOADER
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-download-instructions
+
+                      - name: AMQP_DEMODOWNLOADER_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-obtain-reports
+
+                      - name: AMQP_DEMOFILEWORKER
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-instructions
+
+                      - name: AMQP_DEMOFILEWORKER_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-reports
+
+                      - name: AMQP_GATHERER
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-insert-instructions
+
+                      - name: AMQP_SITUATIONSOPERATOR
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-SO
+
+                      - name: AMQP_MATCHDBI
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: matches-dbi
+
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: demo-central
+spec:
+    selector:
+        app: demo-central
+    ports:
+        - protocol: TCP
+          name: http
+          port: 80
+          targetPort: 80
