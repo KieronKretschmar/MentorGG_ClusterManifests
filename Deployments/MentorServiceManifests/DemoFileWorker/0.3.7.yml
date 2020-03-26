@@ -46,6 +46,10 @@ spec:
                       - name: REDIS_URI
                         value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
 
+                        # Set the Redis Expiry time to 1hr
+                      - name: REDIS_EXPIRATION_TIME
+                        value: "1"
+
                       - name: AMQP_DEMOCENTRAL
                         valueFrom:
                             configMapKeyRef:
