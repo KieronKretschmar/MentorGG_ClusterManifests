@@ -34,7 +34,7 @@ spec:
                                 key: mysql-password
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=demo-central-mysql;port=3306;userid=democentral;password=$(MYSQL_PASSWORD);database=data"
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=democentral@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=democentral;"
 
                       - name: MENTORINTERFACE_BASE_ADDRESS
                         value: "mock"

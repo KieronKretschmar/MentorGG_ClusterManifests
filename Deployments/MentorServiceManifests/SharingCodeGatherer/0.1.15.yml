@@ -51,7 +51,7 @@ spec:
                             name: sharing-code-gatherer-mysql
                             key: mysql-password
                     - name: MYSQL_CONNECTION_STRING
-                      value: "server=sharing-code-gatherer-mysql;port=3306;userid=sharingcodegatherer;password=$(MYSQL_PASSWORD);database=data;"
+                      value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=sharingcodegatherer@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=sharingcodegatherer;"
 ---
 apiVersion: v1
 kind: Service

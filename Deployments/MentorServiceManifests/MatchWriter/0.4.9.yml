@@ -67,10 +67,10 @@ spec:
                       - name: MYSQL_PASSWORD
                         valueFrom:
                           secretKeyRef:
-                              name: match-data-mysql
+                              name: match-writer-mysql
                               key: mysql-password
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=match-data-mysql;port=3306;userid=matchdata;password=$(MYSQL_PASSWORD);database=data;"
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=matchwriter@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=matchdata;"
 ---
 apiVersion: v1
 kind: Service
