@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-helm install match-data --set db.user=matchdata,db.name=data,replication.enabled=false,master.persistence.size=1Gi bitnami/mysql
