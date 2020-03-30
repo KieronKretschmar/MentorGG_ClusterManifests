@@ -70,7 +70,7 @@ spec:
                                 key: mysql-password
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=faceit-match-gatherer-mysql;port=3306;userid=faceitmatchgatherer;password=$(MYSQL_PASSWORD);database=data;"
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=faceitmatchgatherer@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=faceitmatchgatherer;"
 ---
 apiVersion: v1
 kind: Service
