@@ -15,7 +15,6 @@ spec:
             containers:
                 - image: mentorgg.azurecr.io/matchwriter:0.4.9
                   name: main
-                  imagePullPolicy: Always
 
                   resources:
                     requests:

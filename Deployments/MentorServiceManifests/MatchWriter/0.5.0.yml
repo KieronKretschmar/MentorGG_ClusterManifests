@@ -12,10 +12,11 @@ spec:
             labels:
                 app: match-writer
         spec:
+            nodeSelector:
+                nodeType: memory
             containers:
                 - image: mentorgg.azurecr.io/matchwriter:0.5.0
                   name: main
-                  imagePullPolicy: Always
 
                   resources:
                     requests:
