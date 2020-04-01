@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
     name: match-retriever
 spec:
-    replicas: 1
+    replicas: 2
     selector:
         matchLabels:
             app: match-retriever
@@ -18,11 +18,11 @@ spec:
 
                   resources:
                     requests:
-                      cpu: 100m
-                      memory: 128Mi
+                      cpu: 400m
+                      memory: 400Mi
                     limits:
-                      cpu: 300m
-                      memory: 256Mi
+                      cpu: 400m
+                      memory: 400Mi
 
                   ports:
                     - containerPort: 80
