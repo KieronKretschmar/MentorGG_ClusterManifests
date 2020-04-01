@@ -8,6 +8,7 @@ data:
     demo-insert-instructions: "demo-insert-instructions"
     demo-download-instructions: "demo-download-instructions"
     demo-obtain-reports: "demo-obtain-reports"
+    manual-demo-download-reports: "manual-demo-download-reports"
 
     demo-analyze-instructions: "demo-analyze-instructions"
     demo-analyze-reports: "demo-analyze-reports"
