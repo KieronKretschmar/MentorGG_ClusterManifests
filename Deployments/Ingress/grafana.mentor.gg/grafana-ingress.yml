@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ingress
+  namespace: prometheus
+  annotations:
+    kubernetes.io/ingress.class: "nginx"    
+    cert-manager.io/cluster-issuer: "grafana-letsencrypt-issuer"
+
+spec:
+  tls:
+  - hosts:
+    - grafana.mentor.gg
+    secretName: grafana-letsencrypt-key
+  rules:
+  - host: grafana.mentor.gg
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prometheus-grafana
+          servicePort: 80
