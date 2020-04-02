@@ -258,8 +258,12 @@ master:
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
   resources:
     requests:
-      memory: 1024Mi
+      memory: 1000Mi
       cpu: 300m
+    limits:
+      memory: 1500Mi
+      cpu: 500m
+
   ## Use an alternate scheduler, e.g. "stork".
   ## ref: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
   ##
