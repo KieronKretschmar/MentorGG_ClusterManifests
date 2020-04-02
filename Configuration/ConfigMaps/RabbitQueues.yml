@@ -14,6 +14,11 @@ data:
 
     demos-fanout-exchange: "demos-fanout-exchange"
 
+    match-removal-instructions: "match-removal-instructions"
+    match-removal-reports: "match-removal-reports"
+
+    manual-demo-download-reports: "manual-demo-download-reports"
+
     demos-SO: "demos-SO"
 
     matches-dbi: "matches-dbi"
