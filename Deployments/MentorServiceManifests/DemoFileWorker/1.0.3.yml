@@ -63,8 +63,12 @@ spec:
                             secretKeyRef:
                                 name: rabbitmq
                                 key: rabbitmq-password
+                      
                       - name: AMQP_URI
                         value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+                      
+                      - name: AMQP_PREFETCH_COUNT
+                        value: "2"
 ---
 apiVersion: v1
 kind: Service
