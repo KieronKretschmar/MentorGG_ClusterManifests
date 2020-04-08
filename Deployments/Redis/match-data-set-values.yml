@@ -181,16 +181,16 @@ rbac:
 
 ## Redis pod Security Context
 securityContext:
-  enabled: true
+  enabled: false
   fsGroup: 1001
   runAsUser: 1001
   ## sysctl settings for master and slave pods
   ##
   ## Uncomment the setting below to increase the net.core.somaxconn value
   ##
-  # sysctls:
-  # - name: net.core.somaxconn
-  #   value: "10000"
+  sysctls:
+  - name: net.core.somaxconn
+    value: "10000"
 
 ## Use password authentication
 usePassword: true
@@ -274,14 +274,14 @@ master:
   ##
   livenessProbe:
     enabled: true
-    initialDelaySeconds: 5
+    initialDelaySeconds: 120
     periodSeconds: 5
     timeoutSeconds: 5
     successThreshold: 1
     failureThreshold: 5
   readinessProbe:
     enabled: true
-    initialDelaySeconds: 5
+    initialDelaySeconds: 120
     periodSeconds: 5
     timeoutSeconds: 1
     successThreshold: 1
@@ -610,8 +610,15 @@ configmap: |-
 ## Sysctl InitContainer
 ## used to perform sysctl operation to modify Kernel settings (needed sometimes to avoid warnings)
 sysctlImage:
-  enabled: false
-  command: []
+  enabled: true
+  command:
+    - /bin/sh
+    - -c
+    - |-
+      install_packages procps
+      sysctl -w net.core.somaxconn=10000
+      echo never > /host-sys/kernel/mm/transparent_hugepage/enabled
+
   registry: docker.io
   repository: bitnami/minideb
   tag: buster
@@ -622,7 +629,7 @@ sysctlImage:
   ##
   # pullSecrets:
   #   - myRegistryKeySecretName
-  mountHostSys: false
+  mountHostSys: true
   resources: {}
   # resources:
   #   requests:
@@ -635,4 +642,4 @@ sysctlImage:
 podSecurityPolicy:
   ## Specifies whether a PodSecurityPolicy should be created
   ##
-  create: false
+  create: true
