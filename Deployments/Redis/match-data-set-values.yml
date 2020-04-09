@@ -258,7 +258,7 @@ master:
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
   resources:
     requests:
-      memory: 1000Mi
+      memory: 1500Mi
       cpu: 300m
     limits:
       memory: 1500Mi
