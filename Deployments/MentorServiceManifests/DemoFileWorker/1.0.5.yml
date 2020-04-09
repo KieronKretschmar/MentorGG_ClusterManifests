@@ -21,8 +21,8 @@ spec:
                       cpu: 600m
                       memory: 512Mi
                     limits:
-                      cpu: 1200m
-                      memory: 1024Mi
+                      cpu: 1700m
+                      memory: 800Mi
 
                   ports:
                       - containerPort: 80
