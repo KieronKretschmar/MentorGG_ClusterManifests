@@ -108,7 +108,7 @@ rabbitmq:
 
   ## Extra plugins to enable
   ## Use this instead of `plugins` to add new plugins
-  extraPlugins: "rabbitmq_auth_backend_ldap"
+  extraPlugins: "rabbitmq_auth_backend_ldap rabbitmq_top"
 
   ## Clustering settings
   clustering:
