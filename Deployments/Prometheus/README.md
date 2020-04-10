@@ -24,7 +24,7 @@ Import the following Grafana dashboards
 
 - Nginx `9614`, `10187`
 - Redis `11835`
-- RabbitMQ `10863`
+- RabbitMQ `10991`
 
 
 
