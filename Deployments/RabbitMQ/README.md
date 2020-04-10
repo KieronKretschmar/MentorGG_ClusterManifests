@@ -28,3 +28,25 @@ $ kubectl port-forward rabbitmq-0 80:15672
 ## Notes
 
 - When adjusting the resources, take care to adjust the `total_memory_available_override_value` configuration value.
+
+
+## Removing RabbitMQ (Clearing all Data)
+
+First uninstall the chart
+
+```shell
+$ helm uninstall rabbitmq
+```
+
+Then, remove the Persistent Volume Claim (`pvc`)
+
+```shell
+$ kubectl delete pvc data-rabbitmq-0
+```
+
+Confirm the removal by checking for the existence of a Persistent Volume
+
+```shell
+$ kubectl get pv
+```
+
