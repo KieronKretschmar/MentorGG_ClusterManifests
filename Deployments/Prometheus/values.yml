@@ -564,7 +564,7 @@ kubelet:
     ## Enable scraping the kubelet over https. For requirements to enable this see
     ## https://github.com/coreos/prometheus-operator/issues/926
     ##
-    https: true
+    https: false
 
     ## Metric relabellings to apply to samples before ingestion
     ##
@@ -754,7 +754,7 @@ kubeDns:
 ## Component scraping etcd
 ##
 kubeEtcd:
-  enabled: true
+  enabled: false
 
   ## If your etcd is not deployed as a pod, specify IPs it can be found on
   ##
@@ -1086,7 +1086,7 @@ prometheusOperator:
 
   ## Deploy CRDs used by Prometheus Operator.
   ##
-  createCustomResource: true
+  createCustomResource: false
 
   ## Attempt to clean up CRDs created by Prometheus Operator.
   ##
@@ -1114,7 +1114,7 @@ prometheusOperator:
   ## ref: https://github.com/coreos/prometheus-operator/blob/master/helm/prometheus-operator/README.md
   ##
   kubeletService:
-    enabled: false
+    enabled: true
     namespace: kube-system
 
   ## Create a servicemonitor for the operator
