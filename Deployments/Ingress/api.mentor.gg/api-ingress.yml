@@ -16,7 +16,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS, DELETE"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     # Allow only one origin for the production ingress
-    nginx.ingress.kubernetes.io/cors-allow-origin: "https://zeit.mentor.gg"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://mentor.gg"
 
 spec:
   tls:

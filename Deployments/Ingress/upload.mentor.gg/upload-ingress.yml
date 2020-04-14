@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "POST, OPTIONS"
 
-    nginx.ingress.kubernetes.io/cors-allow-origin: "https://zeit.mentor.gg"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://mentor.gg"
 
     nginx.ingress.kubernetes.io/proxy-body-size: "900m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
