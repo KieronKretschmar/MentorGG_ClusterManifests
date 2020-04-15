@@ -22,6 +22,7 @@ $ helm upgrade prometheus -f values.yml stable/prometheus-operator --namespace p
 
 Import the following Grafana dashboards
 
+- General `10856`
 - Nginx `9614`, `10187`
 - Redis `11835`
 - RabbitMQ `10991`
