@@ -17,12 +17,11 @@ spec:
             containers:
                 - image: mentorgg.azurecr.io/matchwriter:1.0.7
                   name: main
-                  imagePullPolicy: Always               
 
                   resources:
                     requests:
                       cpu: 300m
-                      memory: 512Mi
+                      memory: 700Mi
                     limits:
                       cpu: 600m
                       memory: 1024Mi
