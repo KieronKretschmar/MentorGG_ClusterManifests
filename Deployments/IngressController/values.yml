@@ -261,11 +261,11 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-     cpu: 250m
-     memory: 256Mi
+     cpu: 100m
+     memory: 200Mi
   requests:
-     cpu: 250m
-     memory: 256Mi
+     cpu: 50m
+     memory: 160Mi
 
 ## Additional containers to be added to the controller pod
 ## See https://github.com/lemonldap-ng-controller/lemonldap-ng-controller as example.
@@ -421,16 +421,12 @@ defaultBackend:
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
   ##
   resources:
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    limits: {}
-    #   cpu: 250m
-    #   memory: 256Mi
-    requests: {}
-    #   cpu: 250m
-    #   memory: 256Mi
+      limits:
+          cpu: 10m
+          memory: 20Mi
+      requests:
+          cpu: 5m
+          memory: 10Mi
 
   ## Readiness and liveness probes for default backend
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
