@@ -67,7 +67,7 @@ spec:
                         value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"                     
 
                       - name: AMQP_PREFETCH_COUNT
-                        value: "1"
+                        value: "2"
 
                       - name: REDIS_PASSWORD
                         valueFrom:
