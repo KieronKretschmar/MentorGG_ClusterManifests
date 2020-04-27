@@ -19,10 +19,10 @@ spec:
                   resources:
                     requests:
                       cpu: 600m
-                      memory: 600Mi
+                      memory: 900Mi
                     limits:
                       cpu: 1700m
-                      memory: 800Mi
+                      memory: 1200Mi
 
                   ports:
                       - containerPort: 80
@@ -68,7 +68,7 @@ spec:
                         value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
                       
                       - name: AMQP_PREFETCH_COUNT
-                        value: "2"
+                        value: "1"
 ---
 apiVersion: v1
 kind: Service
