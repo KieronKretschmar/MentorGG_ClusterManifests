@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mentor-interface
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mentor-interface
+    template:
+        metadata:
+            labels:
+                app: mentor-interface
+            annotations:
+                prometheus.io/scrape: "true"
+                prometheus.io/port: "9913"
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/mentorinterface:1.4.0
+                  name: main
+
+                  resources:
+                    requests:
+                      cpu: 500m
+                      memory: 400Mi
+                    limits:
+                      cpu: 500m
+                      memory: 800Mi
+
+                  ports:
+                      - containerPort: 80
+                      - containerPort: 9913
+                  env:
+
+                      - name: IDENTITY_WORKAROUND_USER_ID
+                        value: "1"
+
+                      - name: IDENTITY_WORKAROUND_BEARER_TOKEN
+                        value: "6736860962"
+
+                      - name: STEAM_API_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: steam-api
+                                key: key
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: mentor-interface-mysql
+                                key: mysql-password
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=mentorinterface@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=mentorinterface;"
+
+                      - name: PADDLE_VENDOR_ID
+                        valueFrom:
+                          secretKeyRef:
+                              name: paddle-api
+                              key: vendor-id
+
+                      - name: PADDLE_VENDOR_AUTH_CODE
+                        valueFrom:
+                            secretKeyRef:
+                                name: paddle-api
+                                key: vendor-auth-code
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mentor-interface
+spec:
+    selector:
+        app: mentor-interface
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
+        - protocol: TCP
+          name: metrics
+          port: 9913
+          targetPort: 9913
