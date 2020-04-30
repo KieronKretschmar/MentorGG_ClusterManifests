@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-subscription-configuration
+  namespace: default
+data:
+  data.json: |
+    {
+        "free": {
+            "matchAccessDurationInDays": 14,
+            "dailyMatchesLimit": 3
+        },
+        "premium": {
+            "matchAccessDurationInDays": 82,
+            "dailyMatchesLimit": -1
+        },
+        "ultimate": {
+            "matchAccessDurationInDays": -1,
+            "dailyMatchesLimit": -1
+        }
+    }
+        
