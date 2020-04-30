@@ -22,7 +22,7 @@ spec:
                             path: subscriptions.json
 
             containers:
-                - image: mentorgg.azurecr.io/matchretriever:1.4.0-pre
+                - image: mentorgg.azurecr.io/matchretriever:2.0.0
                   name: main
 
                   volumeMounts:
