@@ -293,11 +293,11 @@ persistence:
 ##
 resources:
     requests:
-        cpu: 300m
-        memory: 1500Mi
+        cpu: 100m
+        memory: 350Mi
     limits:
-        cpu: 500m
-        memory: 1500Mi
+        cpu: 100m
+        memory: 350Mi
 
 
 networkPolicy:
