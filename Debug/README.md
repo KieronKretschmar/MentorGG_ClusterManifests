@@ -26,3 +26,19 @@ $ kubectl exec -ti httpie-debug -- /bin/sh
 ```shell
 / # http mentor-interface/identity/76561198004197138
 ```
+
+
+# Curl Debug Container
+
+## Deploy
+
+```shell
+$ kubectl apply -f curl.yml
+```
+
+## Attach
+
+```shell
+$ kubectl exec -ti curl-debug -- /bin/sh
+```
+

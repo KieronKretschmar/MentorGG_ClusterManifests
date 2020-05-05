@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: curl-debug
+  labels:
+    app: curl
+    debug: "true"
+spec:
+  containers:
+    - name: main
+      image: pstauffer/curl:latest
+      command: ["/bin/sh", "-ec", "sleep 1000"]
