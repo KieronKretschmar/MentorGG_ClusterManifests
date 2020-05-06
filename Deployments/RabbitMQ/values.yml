@@ -143,7 +143,7 @@ rabbitmq:
   ## Configuration file content: extra configuration
   ## Use this instead of `configuration` to add more configuration
   extraConfiguration: |-
-    total_memory_available_override_value = 1500mb
+    total_memory_available_override_value = 350mb
     #disk_free_limit.absolute = 50MB
     #management.load_definitions = /app/load_definition.json
 
@@ -296,8 +296,8 @@ resources:
         cpu: 100m
         memory: 350Mi
     limits:
-        cpu: 100m
-        memory: 350Mi
+        cpu: 200m
+        memory: 500Mi
 
 
 networkPolicy:
