@@ -50,3 +50,6 @@ Confirm the removal by checking for the existence of a Persistent Volume
 $ kubectl get pv
 ```
 
+## Testing Namespace
+
+Append `-n testing` to all commands to make changes to the `testing` namespace.
