@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: demo-file-worker
+    namespace: testing
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: demo-file-worker 
+    template:
+        metadata:
+            labels:
+                app: demo-file-worker 
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/demofileworker:1.2.0-pre
+                  name: main
+                  imagePullPolicy: Always
+
+                  resources:
+                    requests:
+                      cpu: 600m
+                      memory: 600Mi
+                    limits:
+                      cpu: 1700m
+                      memory: 800Mi
+
+                  ports:
+                      - containerPort: 80
+
+                  env:
+                      - name: TEMPORARY_FOLDER_LOCATION
+                        value: "/tmp"
+
+                      - name: REDIS_CONFIGURATION_STRING
+                        value: "redis-test:6379,password=mentorgg"
+ 
+                        # Set the Redis Expiry time to 1hr
+                      - name: REDIS_EXPIRATION_TIME
+                        value: "1"
+
+                      - name: DEMO_CENTRAL_BASE_URI
+                        value: "http://demo-central"
+
+                      - name: AMQP_DEMOCENTRAL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-instructions
+
+                      - name: AMQP_DEMOCENTRAL_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-reports
+ 
+                      - name: AMQP_URI
+                        value: "amqp://user:mentorgg@rabbitmq-headless:5672"
+                      
+                      - name: AMQP_PREFETCH_COUNT
+                        value: "2"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: demo-file-worker
+    namespace: testing
+spec:
+    selector:
+        app: demo-file-worker
+    ports:
+        - protocol: TCP
+          name: http
+          port: 80
+          targetPort: 80

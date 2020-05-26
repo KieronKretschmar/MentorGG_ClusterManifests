@@ -29,17 +29,11 @@ spec:
                   ports:
                       - containerPort: 80
                   env:
-                      - name: MYSQL_PASSWORD
-                        valueFrom:
-                            secretKeyRef:
-                                name: demo-central-mysql
-                                key: mysql-password
-
                       - name: MYSQL_CONNECTION_STRING
                         value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=testing@mentorgg-mysql;password=mentorgg;database=t_democentral;"
 
                       - name: MENTORINTERFACE_BASE_ADDRESS
-                        value: "http://mentor-interface"
+                        value: "mock"
 
                       - name: AMQP_FANOUT_EXCHANGE_NAME
                         valueFrom:
@@ -89,7 +83,7 @@ spec:
                                 name: rabbitmq-queues
                                 key: demos-SO
 
-                      - name: AMQP_MATCHDBI
+                      - name: AMQP_MATCHWRITER_UPLOAD_REPORT
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
