@@ -14,7 +14,7 @@ spec:
                 app: demo-file-worker 
         spec:
             containers:
-                - image: mentorgg.azurecr.io/demofileworker:1.2.0-pre
+                - image: mentorgg.azurecr.io/demofileworker:1.3.0
                   name: main
                   imagePullPolicy: Always
 
@@ -34,7 +34,7 @@ spec:
                         value: "/tmp"
 
                       - name: REDIS_CONFIGURATION_STRING
-                        value: "testing-match-data:6379,password=mentorgg"
+                        value: "testing-match-data-redis:6379,password=mentorgg"
  
                         # Set the Redis Expiry time to 1hr
                       - name: REDIS_EXPIRATION_TIME

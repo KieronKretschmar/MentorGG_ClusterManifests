@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: situation-operator
+    namespace: testing
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: situation-operator
+    template:
+        metadata:
+            labels:
+                app: situation-operator
+        spec:
+            nodeSelector:
+                nodeType: memory
+            containers:
+                - image: mentorgg.azurecr.io/situationoperator:0.1.0-pre
+                  name: main
+                  imagePullPolicy: Always
+
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 500Mi
+                    limits:
+                      cpu: 200m
+                      memory: 700Mi
+
+                  ports:
+                    - containerPort: 80
+                  env:
+
+                      - name: AMQP_EXCHANGE_NAME
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-fanout-exchange
+
+                      - name: AMQP_EXCHANGE_CONSUME_QUEUE
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-so-instructions
+
+                      - name: AMQP_DEMOCENTRAL_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-so-reports
+
+                      - name: AMQP_URI
+                        value: "amqp://user:mentorgg@rabbitmq-headless:5672"                     
+
+                      - name: AMQP_PREFETCH_COUNT
+                        value: "2"
+
+                      - name: REDIS_CONFIGURATION_STRING
+                        value: "testing-match-data-redis:6379,password=mentorgg"
+
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=testing@mentorgg-mysql;password=mentorgg;database=t_situations;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: situtation-operator
+    namespace: testing
+spec:
+    selector:
+        app: situation-operator
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80

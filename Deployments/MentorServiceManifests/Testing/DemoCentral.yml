@@ -35,11 +35,19 @@ spec:
                       - name: MENTORINTERFACE_BASE_ADDRESS
                         value: "mock"
 
-                      - name: AMQP_FANOUT_EXCHANGE_NAME
+                      - name: AMQP_MATCHWRITER_INSERTION
                         valueFrom:
                              configMapKeyRef:
                                 name: rabbitmq-queues
                                 key: demos-fanout-exchange
+
+                      - name: AMQP_MATCHWRITER_INSERTION_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: matches-dbi
+
+                        # ===
 
                       - name: AMQP_MANUALDEMODOWNLOAD
                         valueFrom:
@@ -59,6 +67,8 @@ spec:
                                 name: rabbitmq-queues
                                 key: demo-obtain-reports
 
+                        # ===
+
                       - name: AMQP_DEMOFILEWORKER
                         valueFrom:
                             configMapKeyRef:
@@ -71,29 +81,37 @@ spec:
                                 name: rabbitmq-queues
                                 key: demo-analyze-reports
 
+                        # ===
+
                       - name: AMQP_GATHERER
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
                                 key: demo-insert-instructions
 
-                      - name: AMQP_SITUATIONSOPERATOR
-                        valueFrom:
-                            configMapKeyRef:
-                                name: rabbitmq-queues
-                                key: demos-SO
+                        # ===
 
-                      - name: AMQP_MATCHWRITER_UPLOAD_REPORT
+                      - name: AMQP_SITUATION_OPERATOR
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: matches-dbi
+                                key: demos-so-instructions
+
+                      - name: AMQP_SITUATION_OPERATOR_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-so-reports
+
+                        # ===
 
                       - name: AMQP_MATCHWRITER_DEMO_REMOVAL
                         value: TEMP
 
                       - name: AMQP_MATCHWRITER_DEMO_REMOVAL_REPLY
                         value: TEMP
+
+                        # ===
 
                       - name: BLOBSTORAGE_CONNECTION_STRING
                         valueFrom:
@@ -103,6 +121,9 @@ spec:
 
                       - name: AMQP_URI
                         value: "amqp://user:mentorgg@rabbitmq-headless:5672"
+
+                      - name: REDIS_CONFIGURATION_STRING
+                        value: "testing-match-data-redis:6379,password=mentorgg"
 ---
 apiVersion: v1
 kind: Service

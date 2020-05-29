@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mentor-interface
+    namespace: testing
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mentor-interface
+    template:
+        metadata:
+            labels:
+                app: mentor-interface
+            annotations:
+                prometheus.io/scrape: "true"
+                prometheus.io/port: "9913"
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/mentorinterface:1.6.0-pre
+                  name: main
+                  imagePullPolicy: Always
+
+                  resources:
+                    requests:
+                      cpu: 50m
+                      memory: 200Mi
+                    limits:
+                      cpu: 100m
+                      memory: 300Mi
+
+                  ports:
+                      - containerPort: 80
+                      - containerPort: 9913
+                  env:
+
+                      - name: IDENTITY_WORKAROUND_USER_ID
+                        value: "1"
+
+                      - name: IDENTITY_WORKAROUND_BEARER_TOKEN
+                        value: "6736860962"
+
+                      - name: STEAM_API_KEY
+                        value: "655E147019BFCCB80F90E06B17F9AA41"
+
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=testing@mentorgg-mysql;password=mentorgg;database=t_mentorinterface;"
+
+                      - name: PADDLE_VENDOR_ID
+                        value: "0"
+
+                      - name: PADDLE_VENDOR_AUTH_CODE
+                        value: "0"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mentor-interface
+    namespace: testing
+spec:
+    selector:
+        app: mentor-interface
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
+        - protocol: TCP
+          name: metrics
+          port: 9913
+          targetPort: 9913
