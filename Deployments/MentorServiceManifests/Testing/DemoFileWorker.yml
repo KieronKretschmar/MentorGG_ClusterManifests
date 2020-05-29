@@ -34,7 +34,7 @@ spec:
                         value: "/tmp"
 
                       - name: REDIS_CONFIGURATION_STRING
-                        value: "redis-test:6379,password=mentorgg"
+                        value: "testing-match-data:6379,password=mentorgg"
  
                         # Set the Redis Expiry time to 1hr
                       - name: REDIS_EXPIRATION_TIME

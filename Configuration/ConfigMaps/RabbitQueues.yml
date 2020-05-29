@@ -19,6 +19,7 @@ data:
 
     manual-demo-download-reports: "manual-demo-download-reports"
 
-    demos-SO: "demos-SO"
+    demos-so-instructions: "demos-so-instructions"
+    demos-so-reports: "demos-so-reports"
 
     matches-dbi: "matches-dbi"

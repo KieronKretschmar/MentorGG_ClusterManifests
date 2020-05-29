@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+helm install testing-match-data -f test-values.yml bitnami/redis --namespace testing
