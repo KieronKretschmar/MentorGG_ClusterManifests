@@ -65,7 +65,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: situtation-operator
+    name: situation-operator
     namespace: testing
 spec:
     selector:
