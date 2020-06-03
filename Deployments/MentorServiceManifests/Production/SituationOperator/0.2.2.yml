@@ -24,8 +24,9 @@ spec:
                             
             nodeSelector:
                 nodeType: memory
+
             containers:
-                - image: mentorgg.azurecr.io/situationoperator:0.2.1
+                - image: mentorgg.azurecr.io/situationoperator:0.2.2
                   name: main
 
                   volumeMounts:
@@ -44,41 +45,53 @@ spec:
                     - containerPort: 80
                   env:
 
-                      - name: AMQP_EXCHANGE_NAME
-                        valueFrom:
-                            configMapKeyRef:
-                                name: rabbitmq-queues
-                                key: demos-fanout-exchange
-
-                      - name: AMQP_EXCHANGE_CONSUME_QUEUE
+                      - name: AMQP_EXTRACTION_INSTRUCTIONS
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
                                 key: demos-so-instructions
 
-                      - name: AMQP_DEMOCENTRAL_REPLY
+                      - name: AMQP_EXTRACTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
                                 key: demos-so-reports
 
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+                     
                       - name: AMQP_URI
-                        value: "amqp://user:mentorgg@rabbitmq-headless:5672"                     
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"           
 
                       - name: AMQP_PREFETCH_COUNT
                         value: "2"
 
+                      - name: REDIS_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: match-data-sets-redis
+                                key: redis-password
+                                
                       - name: REDIS_CONFIGURATION_STRING
-                        value: "testing-match-data-redis:6379,password=mentorgg"
+                        value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
+
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                              name: situation-operator-mysql
+                              key: mysql-password
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=situationoperator@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=situations;"
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=situationoperator@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=situationoperator;"
 ---
 apiVersion: v1
 kind: Service
 metadata:
     name: situation-operator
-    namespace: testing
+    namespace: default
 spec:
     selector:
         app: situation-operator
