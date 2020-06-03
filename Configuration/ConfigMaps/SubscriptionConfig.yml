@@ -8,15 +8,18 @@ data:
     {
         "free": {
             "matchAccessDurationInDays": 14,
-            "dailyMatchesLimit": 3
+            "dailyMatchesLimit": 3,
+            "firstAndLastRoundsForSituations": 1
         },
         "premium": {
             "matchAccessDurationInDays": 82,
-            "dailyMatchesLimit": -1
+            "dailyMatchesLimit": -1,
+            "firstAndLastRoundsForSituations": -1
         },
         "ultimate": {
             "matchAccessDurationInDays": -1,
-            "dailyMatchesLimit": -1
+            "dailyMatchesLimit": -1,
+            "firstAndLastRoundsForSituations": -1
         }
     }
         
