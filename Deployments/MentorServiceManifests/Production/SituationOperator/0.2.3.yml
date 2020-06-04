@@ -26,7 +26,7 @@ spec:
                 nodeType: memory
 
             containers:
-                - image: mentorgg.azurecr.io/situationoperator:0.2.2
+                - image: mentorgg.azurecr.io/situationoperator:0.2.3
                   name: main
 
                   volumeMounts:
@@ -49,13 +49,13 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-so-instructions
+                                key: demos-extraction-instructions
 
                       - name: AMQP_EXTRACTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-so-reports
+                                key: demos-extraction-reports
 
                       # ---
 
