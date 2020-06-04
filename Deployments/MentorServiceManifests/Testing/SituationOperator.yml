@@ -25,7 +25,7 @@ spec:
             nodeSelector:
                 nodeType: memory
             containers:
-                - image: mentorgg.azurecr.io/situationoperator:0.1.0-pre
+                - image: mentorgg.azurecr.io/situationoperator:0.2.0-pre
                   name: main
                   imagePullPolicy: Always
 
@@ -74,6 +74,9 @@ spec:
 
                       - name: MYSQL_CONNECTION_STRING
                         value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=testing@mentorgg-mysql;password=mentorgg;database=t_situations;"
+
+                      - name: MOCK_SUBSCRIPTION_LOADER
+                        value: "true" 
 ---
 apiVersion: v1
 kind: Service
