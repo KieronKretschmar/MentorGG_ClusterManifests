@@ -37,6 +37,8 @@ spec:
                       - name: MYSQL_CONNECTION_STRING
                         value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=democentral@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=democentral;"
 
+                      # ---
+
                       - name: MENTORINTERFACE_BASE_ADDRESS
                         value: "mentor-interface"
 
@@ -51,8 +53,6 @@ spec:
                             configMapKeyRef:
                                 name: rabbitmq-queues
                                 key: demos-insertion-reports
-
-                        # ===
 
                       - name: AMQP_MANUALDEMODOWNLOAD
                         valueFrom:
@@ -72,7 +72,7 @@ spec:
                                 name: rabbitmq-queues
                                 key: demo-obtain-reports
 
-                        # ===
+                      # ---
 
                       - name: AMQP_DEMOFILEWORKER
                         valueFrom:
@@ -86,7 +86,7 @@ spec:
                                 name: rabbitmq-queues
                                 key: demo-analyze-reports
 
-                        # ===
+                      # ---
 
                       - name: AMQP_GATHERER
                         valueFrom:
@@ -94,7 +94,7 @@ spec:
                                 name: rabbitmq-queues
                                 key: demo-insert-instructions
 
-                        # ===
+                      # ---
 
                       - name: AMQP_SITUATION_OPERATOR
                         valueFrom:
@@ -108,7 +108,7 @@ spec:
                                 name: rabbitmq-queues
                                 key: demos-extraction-reports
 
-                        # ===
+                      # ---
 
                       - name: AMQP_MATCHWRITER_DEMO_REMOVAL
                         value: TEMP
@@ -116,13 +116,15 @@ spec:
                       - name: AMQP_MATCHWRITER_DEMO_REMOVAL_REPLY
                         value: TEMP
 
-                        # ===
+                      # ---
 
                       - name: BLOBSTORAGE_CONNECTION_STRING
                         valueFrom:
                             secretKeyRef:
                                 name: blob-storage
                                 key: connection-string
+
+                      # ---
 
                       - name: AMQP_PASSWORD
                         valueFrom:
@@ -132,6 +134,8 @@ spec:
 
                       - name: AMQP_URI
                         value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+
+                      # ---
 
                       - name: REDIS_PASSWORD
                         valueFrom:

@@ -5,6 +5,7 @@ metadata:
   namespace: default
 data:
     sharing-code-instructions: "sharing-code-instructions"
+    
     demo-insert-instructions: "demo-insert-instructions"
     demo-download-instructions: "demo-download-instructions"
 
@@ -12,8 +13,6 @@ data:
 
     demo-analyze-instructions: "demo-analyze-instructions"
     demo-analyze-reports: "demo-analyze-reports"
-
-    demos-fanout-exchange: "demos-fanout-exchange"
 
     match-removal-instructions: "match-removal-instructions"
     match-removal-reports: "match-removal-reports"

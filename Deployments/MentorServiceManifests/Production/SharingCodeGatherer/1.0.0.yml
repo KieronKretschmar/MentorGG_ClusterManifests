@@ -33,23 +33,32 @@ spec:
                         secretKeyRef:
                             name: rabbitmq
                             key: rabbitmq-password
+
                     - name: AMQP_URI
                       value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
 
+                    # ---
+
                     - name: AMQP_SHARINGCODE_QUEUE
-                      value: sharing-code-instructions 
+                      valueFrom:
+                             configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: sharing-code-instructions
 
                     - name: STEAM_API_KEY
                       valueFrom:
                         secretKeyRef:
                             name: steam-api
                             key: key
-                    
+
+                    # ---
+
                     - name: MYSQL_PASSWORD
                       valueFrom:
                         secretKeyRef:
                             name: sharing-code-gatherer-mysql
                             key: mysql-password
+
                     - name: MYSQL_CONNECTION_STRING
                       value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=sharingcodegatherer@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=sharingcodegatherer;"
 ---

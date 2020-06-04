@@ -57,6 +57,8 @@ spec:
                                 name: rabbitmq-queues
                                 key: demos-so-reports
 
+                      # ---
+
                       - name: AMQP_PASSWORD
                         valueFrom:
                             secretKeyRef:
@@ -69,6 +71,8 @@ spec:
                       - name: AMQP_PREFETCH_COUNT
                         value: "2"
 
+                      # ---
+
                       - name: REDIS_PASSWORD
                         valueFrom:
                             secretKeyRef:
@@ -77,6 +81,8 @@ spec:
                                 
                       - name: REDIS_CONFIGURATION_STRING
                         value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
+
+                      # ---
 
                       - name: MYSQL_PASSWORD
                         valueFrom:

@@ -55,6 +55,8 @@ spec:
                                 name: rabbitmq-queues
                                 key: match-removal-reports
  
+                      # ---
+
                       - name: AMQP_PASSWORD
                         valueFrom:
                             secretKeyRef:
