@@ -40,7 +40,7 @@ spec:
                       # ---
 
                       - name: MENTORINTERFACE_BASE_ADDRESS
-                        value: "mentor-interface"
+                        value: "http://mentor-interface"
 
                       - name: AMQP_MATCHWRITER_INSERTION
                         valueFrom:
