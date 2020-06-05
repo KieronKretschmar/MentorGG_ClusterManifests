@@ -24,7 +24,7 @@ spec:
                       cpu: 300m
                       memory: 700Mi
                     limits:
-                      cpu: 600m
+                      cpu: 900m
                       memory: 1024Mi
 
                   ports:
