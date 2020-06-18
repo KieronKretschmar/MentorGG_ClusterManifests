@@ -17,7 +17,7 @@ spec:
                 prometheus.io/port: "9913"
         spec:
             containers:
-                - image: mentorgg.azurecr.io/mentorinterface:1.6.0-pre
+                - image: mentorgg.azurecr.io/mentorinterface:1.9.0
                   name: main
                   imagePullPolicy: Always
 
