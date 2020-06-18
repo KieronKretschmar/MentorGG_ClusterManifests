@@ -11,6 +11,11 @@ data:
             "dailyMatchesLimit": 3,
             "firstAndLastRoundsForSituations": 1
         },
+        "influencer": {
+            "matchAccessDurationInDays": 14,
+            "dailyMatchesLimit": 3,
+            "firstAndLastRoundsForSituations": 2
+        },
         "premium": {
             "matchAccessDurationInDays": 82,
             "dailyMatchesLimit": -1,
