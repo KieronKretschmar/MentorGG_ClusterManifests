@@ -14,7 +14,7 @@ spec:
                 app: demo-central 
         spec:
             containers:
-                - image: mentorgg.azurecr.io/democentral:2.0.0-pre
+                - image: mentorgg.azurecr.io/democentral:2.2.2-pre
                   name: main
                   imagePullPolicy: Always
 
@@ -29,11 +29,18 @@ spec:
                   ports:
                       - containerPort: 80
                   env:
+
+                      - name: MOCK_SUBSCRIPTION_LOADER
+                        value: "True"
+
                       - name: MYSQL_CONNECTION_STRING
                         value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=testing@mentorgg-mysql;password=mentorgg;database=t_democentral;"
 
                       - name: MENTORINTERFACE_BASE_ADDRESS
                         value: "mock"
+
+                      - name: MATCHRETRIEVER_BASE_ADDRESS
+                        value: "http://match-retriever"
 
                       - name: AMQP_MATCHWRITER_INSERTION
                         valueFrom:
@@ -124,6 +131,12 @@ spec:
 
                       - name: REDIS_CONFIGURATION_STRING
                         value: "testing-match-data-redis:6379,password=mentorgg"
+
+                      - name: DEMO_REMOVAL_INTERVAL
+                        value: "2"
+
+                      - name: DEMO_REMOVAL_ALLOWANCE
+                        value: "1"
 ---
 apiVersion: v1
 kind: Service
