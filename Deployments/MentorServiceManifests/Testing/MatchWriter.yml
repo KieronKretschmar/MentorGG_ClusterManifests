@@ -16,7 +16,7 @@ spec:
             nodeSelector:
                 nodeType: memory
             containers:
-                - image: mentorgg.azurecr.io/matchwriter:2.0.1
+                - image: mentorgg.azurecr.io/matchwriter:2.0.2
                   name: main
                   imagePullPolicy: Always
 
