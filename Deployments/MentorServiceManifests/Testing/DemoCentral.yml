@@ -46,13 +46,13 @@ spec:
                         valueFrom:
                              configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-fanout-exchange
+                                key: demos-insertion-instructions
 
                       - name: AMQP_MATCHWRITER_INSERTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: matches-dbi
+                                key: demos-insertion-reports
 
                         # ===
 
@@ -102,21 +102,28 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-so-instructions
+                                key: demos-extraction-instructions
 
                       - name: AMQP_SITUATION_OPERATOR_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-so-reports
+                                key: demos-extraction-reports
 
                         # ===
 
                       - name: AMQP_MATCHWRITER_DEMO_REMOVAL
-                        value: TEMP
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-removal-instructions
 
+                       
                       - name: AMQP_MATCHWRITER_DEMO_REMOVAL_REPLY
-                        value: TEMP
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-removal-reports
 
                         # ===
 

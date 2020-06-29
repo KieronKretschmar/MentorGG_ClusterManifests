@@ -16,7 +16,7 @@ spec:
             nodeSelector:
                 nodeType: memory
             containers:
-                - image: mentorgg.azurecr.io/matchwriter:2.0.0
+                - image: mentorgg.azurecr.io/matchwriter:2.0.1
                   name: main
                   imagePullPolicy: Always
 
@@ -32,20 +32,17 @@ spec:
                     - containerPort: 80
                   env:
 
-                      - name: AMQP_EXCHANGE_NAME
+                      - name: AMQP_INSERTION_INSTRUCTIONS
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-fanout-exchange
+                                key: demos-insertion-instructions
 
-                      - name: AMQP_EXCHANGE_CONSUME_QUEUE
-                        value: "demos-fanout-exchange"
-
-                      - name: AMQP_CALLBACK_QUEUE
+                      - name: AMQP_INSERTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: matches-dbi
+                                key: demos-insertion-reports
 
                       - name: AMQP_DEMOCENTRAL_DEMO_REMOVAL
                         valueFrom:
@@ -58,7 +55,7 @@ spec:
                             configMapKeyRef:
                                 name: rabbitmq-queues
                                 key: match-removal-reports
- 
+
                       - name: AMQP_URI
                         value: "amqp://user:mentorgg@rabbitmq-headless:5672"                     
 

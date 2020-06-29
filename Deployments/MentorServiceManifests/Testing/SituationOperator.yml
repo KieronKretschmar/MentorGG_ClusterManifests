@@ -25,7 +25,7 @@ spec:
             nodeSelector:
                 nodeType: memory
             containers:
-                - image: mentorgg.azurecr.io/situationoperator:0.2.0-pre
+                - image: mentorgg.azurecr.io/situationoperator:0.4.0
                   name: main
                   imagePullPolicy: Always
 
@@ -45,23 +45,17 @@ spec:
                     - containerPort: 80
                   env:
 
-                      - name: AMQP_EXCHANGE_NAME
+                      - name: AMQP_EXTRACTION_INSTRUCTIONS
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-fanout-exchange
+                                key: demos-extraction-instructions
 
-                      - name: AMQP_EXCHANGE_CONSUME_QUEUE
+                      - name: AMQP_EXTRACTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-so-instructions
-
-                      - name: AMQP_DEMOCENTRAL_REPLY
-                        valueFrom:
-                            configMapKeyRef:
-                                name: rabbitmq-queues
-                                key: demos-so-reports
+                                key: demos-extraction-reports
 
                       - name: AMQP_URI
                         value: "amqp://user:mentorgg@rabbitmq-headless:5672"                     
