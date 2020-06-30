@@ -25,6 +25,7 @@ spec:
             containers:
                 - image: mentorgg.azurecr.io/democentral:2.2.2-pre
                   name: main
+                  imagePullPolicy: Always
 
                   volumeMounts:
                       - name: subscription-configuration-volume
@@ -54,6 +55,9 @@ spec:
 
                       - name: MENTORINTERFACE_BASE_ADDRESS
                         value: "http://mentor-interface"
+
+                      - name: MATCHRETRIEVER_BASE_ADDRESS
+                        value: "http://match-retriever"
 
                       - name: AMQP_MATCHWRITER_INSERTION
                         valueFrom:
@@ -167,7 +171,7 @@ spec:
 
                       # Absurdly High
                       - name: DEMO_REMOVAL_INTERVAL
-                        value: "1000000"
+                        value: "10000"
 
                       # 1 Week
                       - name: DEMO_REMOVAL_ALLOWANCE
