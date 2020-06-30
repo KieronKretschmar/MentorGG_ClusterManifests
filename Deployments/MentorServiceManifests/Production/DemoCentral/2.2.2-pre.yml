@@ -1,0 +1,188 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: demo-central 
+    namespace: default
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: demo-central 
+    template:
+        metadata:
+            labels:
+                app: demo-central 
+        spec:
+
+            volumes:
+                - name: subscription-configuration-volume
+                  configMap:
+                      name: user-subscription-configuration
+                      items:
+                          - key: data.json
+                            path: subscriptions.json
+
+            containers:
+                - image: mentorgg.azurecr.io/democentral:2.2.2-pre
+                  name: main
+
+                  volumeMounts:
+                      - name: subscription-configuration-volume
+                        mountPath: /app/config
+
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 128Mi
+                    limits:
+                      cpu: 200m
+                      memory: 256Mi
+
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: demo-central-mysql
+                                key: mysql-password
+
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=democentral@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=democentral;"
+
+                      # ---
+
+                      - name: MENTORINTERFACE_BASE_ADDRESS
+                        value: "http://mentor-interface"
+
+                      - name: AMQP_MATCHWRITER_INSERTION
+                        valueFrom:
+                             configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-insertion-instructions
+
+                      - name: AMQP_MATCHWRITER_INSERTION_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-insertion-reports
+
+                      - name: AMQP_MANUALDEMODOWNLOAD
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: manual-demo-download-reports
+
+                      - name: AMQP_DEMODOWNLOADER
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-download-instructions
+
+                      - name: AMQP_DEMODOWNLOADER_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-obtain-reports
+
+                      # ---
+
+                      - name: AMQP_DEMOFILEWORKER
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-instructions
+
+                      - name: AMQP_DEMOFILEWORKER_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-analyze-reports
+
+                      # ---
+
+                      - name: AMQP_GATHERER
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demo-insert-instructions
+
+                      # ---
+
+                      - name: AMQP_SITUATION_OPERATOR
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-extraction-instructions
+
+                      - name: AMQP_SITUATION_OPERATOR_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: demos-extraction-reports
+
+                      # ---
+
+                      - name: AMQP_MATCHWRITER_DEMO_REMOVAL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-removal-instructions
+
+                      - name: AMQP_MATCHWRITER_DEMO_REMOVAL_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-removal-reports
+
+                      # ---
+
+                      - name: BLOBSTORAGE_CONNECTION_STRING
+                        valueFrom:
+                            secretKeyRef:
+                                name: blob-storage
+                                key: connection-string
+
+                      # ---
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"
+
+                      # ---
+
+                      - name: REDIS_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: match-data-sets-redis
+                                key: redis-password
+                                
+                      - name: REDIS_CONFIGURATION_STRING
+                        value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
+
+                      # Absurdly High
+                      - name: DEMO_REMOVAL_INTERVAL
+                        value: "1000000"
+
+                      # 1 Week
+                      - name: DEMO_REMOVAL_ALLOWANCE
+                        value: "10080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: demo-central
+    namespace: default
+spec:
+    selector:
+        app: demo-central
+    ports:
+        - protocol: TCP
+          name: http
+          port: 80
+          targetPort: 80
