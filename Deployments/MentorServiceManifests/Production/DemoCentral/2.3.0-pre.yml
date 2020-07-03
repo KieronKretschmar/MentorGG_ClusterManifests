@@ -23,7 +23,7 @@ spec:
                             path: subscriptions.json
 
             containers:
-                - image: mentorgg.azurecr.io/democentral:2.2.2-pre
+                - image: mentorgg.azurecr.io/democentral:2.3.0-pre
                   name: main
                   imagePullPolicy: Always
 
