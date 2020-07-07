@@ -169,9 +169,9 @@ spec:
                       - name: REDIS_CONFIGURATION_STRING
                         value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
 
-                      # Absurdly High
+                      # 24Hrs
                       - name: DEMO_REMOVAL_INTERVAL
-                        value: "10000"
+                        value: "1440"
 
                       # 1 Week
                       - name: DEMO_REMOVAL_ALLOWANCE
