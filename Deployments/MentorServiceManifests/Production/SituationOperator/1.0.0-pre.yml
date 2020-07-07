@@ -22,9 +22,6 @@ spec:
                           - key: data.json
                             path: subscriptions.json
                             
-            nodeSelector:
-                nodeType: memory
-
             containers:
                 - image: mentorgg.azurecr.io/situationoperator:1.0.0-pre
                   name: main
