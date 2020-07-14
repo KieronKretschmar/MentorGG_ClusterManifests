@@ -515,7 +515,8 @@ networkPolicy:
 
 ## Kubernetes service type
 service:
-  type: ClusterIP
+  type: LoadBalancer
+  #type: ClusterIP
   ## Amqp port
   ## ref: https://github.com/bitnami/bitnami-docker-rabbitmq#environment-variables
   ##
@@ -576,8 +577,9 @@ service:
   ## Load Balancer sources
   ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ##
-  # loadBalancerSourceRanges:
-  # - 10.10.10.0/24
+  loadBalancerSourceRanges:
+      - 10.240.0.0/24
+      - 172.16.0.0/24
 
   ## Set the ExternalIPs
   ##
@@ -585,7 +587,7 @@ service:
 
   ## Set the LoadBalancerIP
   ##
-  # loadBalancerIP:
+  loadBalancerIP: 10.240.0.25
 
   ## Service labels. Evaluated as a template
   ##
@@ -596,7 +598,8 @@ service:
   ## annotations:
   ##   service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
   ##
-  annotations: {}
+  annotations:
+      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 
 ## Configure the ingress resource that allows you to access the
 ## RabbitMQ installation. Set up the URL
