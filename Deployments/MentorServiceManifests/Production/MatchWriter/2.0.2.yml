@@ -33,13 +33,13 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-insertion-instructions
+                                key: match-write-instructions
 
                       - name: AMQP_INSERTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-insertion-reports
+                                key: match-write-reports
 
                       - name: AMQP_DEMOCENTRAL_DEMO_REMOVAL
                         valueFrom:
