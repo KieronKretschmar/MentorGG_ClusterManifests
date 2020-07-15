@@ -370,11 +370,11 @@ containerSecurityContext: {}
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
 resources:
     requests:
-        cpu: 500m
-        memory: 350Mi
+        cpu: 150m
+        memory: 250Mi
     limits:
-        cpu: 600m
-        memory: 500Mi
+        cpu: 200m
+        memory: 300Mi
 
 ## RabbitMQ containers' liveness and readiness probes.
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
