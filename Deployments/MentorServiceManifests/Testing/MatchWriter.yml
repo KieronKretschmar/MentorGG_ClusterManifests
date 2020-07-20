@@ -13,19 +13,17 @@ spec:
             labels:
                 app: match-writer
         spec:
-            nodeSelector:
-                nodeType: memory
             containers:
-                - image: mentorgg.azurecr.io/matchwriter:2.0.2
+                - image: mentorgg.azurecr.io/matchwriter:3.1.0
                   name: main
                   imagePullPolicy: Always
 
                   resources:
                     requests:
-                      cpu: 300m
-                      memory: 700Mi
+                      cpu: 100m
+                      memory: 350Mi
                     limits:
-                      cpu: 600m
+                      cpu: 300m
                       memory: 1024Mi
 
                   ports:
@@ -36,13 +34,13 @@ spec:
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-insertion-instructions
+                                key: match-write-instructions
 
                       - name: AMQP_INSERTION_REPLY
                         valueFrom:
                             configMapKeyRef:
                                 name: rabbitmq-queues
-                                key: demos-insertion-reports
+                                key: match-write-reports
 
                       - name: AMQP_DEMOCENTRAL_DEMO_REMOVAL
                         valueFrom:
