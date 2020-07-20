@@ -330,9 +330,9 @@ alertmanager:
     ##
     resources:
         limits:
-            memory: 300Mi
+            memory: 100Mi
         requests:
-            memory: 200Mi
+            memory: 50Mi
 
     ## Pod anti-affinity can prevent the scheduler from placing Prometheus replicas on the same node.
     ## The default value "soft" means that the scheduler should *prefer* to not schedule two replica pods onto the same node but no guarantee is provided.
@@ -404,6 +404,11 @@ alertmanager:
 ##
 grafana:
   enabled: true
+
+  persistence:
+    enabled: true
+    size: "1Gi"
+    annotations: {}
 
   ## Deploy default dashboards.
   ##
@@ -1148,17 +1153,17 @@ prometheusOperator:
   ##
   resources:
    limits:
-     cpu: 60m
-     memory: 200Mi
-   requests:
-     cpu: 40m
+     cpu: 30m
      memory: 100Mi
+   requests:
+     cpu: 15m
+     memory: 50Mi
 
   ## Define which Nodes the Pods are scheduled on.
   ## ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector:
-    nodeType: memory
+  #nodeSelector:
+  # nodeType: memory
 
   ## Tolerations for use with node taints
   ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
