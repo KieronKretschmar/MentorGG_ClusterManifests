@@ -51,6 +51,18 @@ spec:
 
                       - name: PADDLE_VENDOR_AUTH_CODE
                         value: "0"
+                      
+                      - name: JWT_SIGNING_KEY
+                        value: "SuperSecretPassPhraseForNobodyToEverStealOrKnowOutsideOfMentorGG"
+
+                      - name: JWT_ISSUER
+                        value: "test.mentor.gg"
+
+                      - name: JWT_AUDIENCE
+                        value: "mentor.gg"
+
+                      - name: JWT_VALIDITY
+                        value: "5"
 
 ---
 apiVersion: v1
