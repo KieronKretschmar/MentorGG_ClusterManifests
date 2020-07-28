@@ -94,7 +94,7 @@ spec:
                               key: mysql-password
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=situationoperator@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=situationoperator;"
+                        value: "server=mentorgg-west.mysql.database.azure.com;port=3306;userid=situationoperator@mentorgg-west;password=$(MYSQL_PASSWORD);database=situationoperator;"
 ---
 apiVersion: v1
 kind: Service

@@ -86,7 +86,7 @@ spec:
                               key: mysql-password
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=matchwriter@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=matchdata;"
+                        value: "server=mentorgg-west.mysql.database.azure.com;port=3306;userid=matchwriter@mentorgg-west;password=$(MYSQL_PASSWORD);database=matchdata;"
 ---
 apiVersion: v1
 kind: Service

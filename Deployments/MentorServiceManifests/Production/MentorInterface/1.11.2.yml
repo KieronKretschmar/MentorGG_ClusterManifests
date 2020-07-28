@@ -59,7 +59,7 @@ spec:
                                 name: mentor-interface-mysql
                                 key: mysql-password
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=mentorinterface@mentorgg-mysql;password=$(MYSQL_PASSWORD);database=mentorinterface;"
+                        value: "server=mentorgg-west.mysql.database.azure.com;port=3306;userid=mentorinterface@mentorgg-west;password=$(MYSQL_PASSWORD);database=mentorinterface;"
 
                       - name: PADDLE_VENDOR_ID
                         valueFrom:
@@ -90,15 +90,3 @@ spec:
           name: metrics
           port: 9913
           targetPort: 9913
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mentor-interface-keys
-spec:
-  accessModes:
-  - ReadWriteOnce
-  storageClassName: default
-  resources:
-    requests:
-      storage: 1Gi
