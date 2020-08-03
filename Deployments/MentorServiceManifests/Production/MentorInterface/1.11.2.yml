@@ -59,7 +59,7 @@ spec:
                                 name: mentor-interface-mysql
                                 key: mysql-password
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=mentorgg-west.mysql.database.azure.com;port=3306;userid=mentorinterface@mentorgg-west;password=$(MYSQL_PASSWORD);database=mentorinterface;"
+                        value: "server=mentorgg-west2.mysql.database.azure.com;port=3306;userid=mentorinterface@mentorgg-west2;password=$(MYSQL_PASSWORD);database=mentorinterface;"
 
                       - name: PADDLE_VENDOR_ID
                         valueFrom:
