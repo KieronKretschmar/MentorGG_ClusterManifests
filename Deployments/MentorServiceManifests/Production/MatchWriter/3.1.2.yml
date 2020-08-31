@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: match-writer
+    namespace: default
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: match-writer
+    template:
+        metadata:
+            labels:
+                app: match-writer
+        spec:
+            containers:
+                - image: mentorgg.azurecr.io/matchwriter:3.1.2
+                  name: main
+
+                  resources:
+                    requests:
+                      cpu: 150m
+                      memory: 700Mi
+                    limits:
+                      cpu: 300m
+                      memory: 1024Mi
+
+                  ports:
+                    - containerPort: 80
+                  env:
+
+                      - name: AMQP_INSERTION_INSTRUCTIONS
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-write-instructions
+
+                      - name: AMQP_INSERTION_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-write-reports
+
+                      - name: AMQP_DEMOCENTRAL_DEMO_REMOVAL
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-removal-instructions
+
+                      - name: AMQP_DEMOCENTRAL_DEMO_REMOVAL_REPLY
+                        valueFrom:
+                            configMapKeyRef:
+                                name: rabbitmq-queues
+                                key: match-removal-reports
+ 
+                      # ---
+
+                      - name: AMQP_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: rabbitmq
+                                key: rabbitmq-password
+                     
+                      - name: AMQP_URI
+                        value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"             
+
+                      - name: AMQP_PREFETCH_COUNT
+                        value: "2"
+
+                      # ----
+                      - name: REDIS_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: match-data-sets-redis
+                                key: redis-password
+                                
+                      - name: REDIS_CONFIGURATION_STRING
+                        value: "match-data-sets-redis-master:6379,password=$(REDIS_PASSWORD)"
+
+                      # ---
+
+                      - name: MYSQL_PASSWORD
+                        valueFrom:
+                          secretKeyRef:
+                              name: match-writer-mysql
+                              key: mysql-password
+
+                      - name: MYSQL_CONNECTION_STRING
+                        value: "server=mentorgg-west2.mysql.database.azure.com;port=3306;userid=matchwriter@mentorgg-west2;password=$(MYSQL_PASSWORD);database=matchdata;"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: match-writer
+    namespace: default
+spec:
+    selector:
+        app: match-writer
+    ports:
+        - protocol: TCP
+          name: public
+          port: 80
+          targetPort: 80
