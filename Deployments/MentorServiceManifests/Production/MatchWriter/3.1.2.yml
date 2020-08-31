@@ -4,7 +4,7 @@ metadata:
     name: match-writer
     namespace: default
 spec:
-    replicas: 2
+    replicas: 3
     selector:
         matchLabels:
             app: match-writer
@@ -20,10 +20,10 @@ spec:
                   resources:
                     requests:
                       cpu: 150m
-                      memory: 700Mi
+                      memory: 300Mi
                     limits:
                       cpu: 300m
-                      memory: 1024Mi
+                      memory: 600Mi
 
                   ports:
                     - containerPort: 80
@@ -65,7 +65,7 @@ spec:
                         value: "amqp://user:$(AMQP_PASSWORD)@rabbitmq-headless:5672"             
 
                       - name: AMQP_PREFETCH_COUNT
-                        value: "2"
+                        value: "1"
 
                       # ----
                       - name: REDIS_PASSWORD
