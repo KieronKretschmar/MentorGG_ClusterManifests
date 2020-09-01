@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
     name: demo-file-worker 
 spec:
-    replicas: 5
+    replicas: 8
     selector:
         matchLabels:
             app: demo-file-worker 
