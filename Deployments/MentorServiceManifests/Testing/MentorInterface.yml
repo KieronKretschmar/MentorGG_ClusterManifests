@@ -54,26 +54,13 @@ spec:
                         value: "655E147019BFCCB80F90E06B17F9AA41"
 
                       - name: MYSQL_CONNECTION_STRING
-                        value: "server=mentorgg-mysql.mysql.database.azure.com;port=3306;userid=testing@mentorgg-mysql;password=mentorgg;database=t_mentorinterface;"
+                        value: "server=mentorgg-west2.mysql.database.azure.com;port=3306;userid=testing@mentorgg-west2;password=mentorgg;database=t_mentorinterface;"
 
                       - name: PADDLE_VENDOR_ID
-                        value: "0"
+                        value: "110217"
 
                       - name: PADDLE_VENDOR_AUTH_CODE
-                        value: "0"
-                      
-                      - name: JWT_SIGNING_KEY
-                        value: "SuperSecretPassPhraseForNobodyToEverStealOrKnowOutsideOfMentorGG"
-
-                      - name: JWT_ISSUER
-                        value: "test.mentor.gg"
-
-                      - name: JWT_AUDIENCE
-                        value: "mentor.gg"
-
-                      - name: JWT_VALIDITY
-                        value: "5"
-
+                        value: "9a49a12bc799372e5e2c436664b74fc93c352f1b233fc39902" 
 ---
 apiVersion: v1
 kind: Service
